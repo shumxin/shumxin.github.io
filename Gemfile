@@ -1,8 +1,9 @@
 source "https://rubygems.org"
 
 gem "jekyll", "~> 4.2.0"
-gem "jekyll-remote-theme"
 gem "jekyll-feed", "~> 0.15.1"
+gem "jekyll-paginate", "~> 1.1"
+gem "jekyll-sitemap"
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
 # and associated library.

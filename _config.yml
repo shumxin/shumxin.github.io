@@ -8,7 +8,10 @@ twitter_username: shumxin
 github_username:  shumxin
 
 # Build settings
-remote_theme: shumxin/startbootstrap-clean-blog-jekyll
+markdown:           kramdown
+paginate:           5
+paginate_path:      "/posts/page:num/"
 plugins:
   - jekyll-feed
-  - jekyll-remote-theme
+  - jekyll-paginate
+  - jekyll-sitemap ## Uncomment this line to silently generate a sitemaps.org compliant sitemap for your Jekyll site

@@ -11,7 +11,7 @@ categories: android
 
 最近看了我司某产品的 Bugly 上的崩溃分析统计，注意到 `Canvas: trying to use a recycled bitmap android.graphics.Bitmap@e9a8c74` 异常有点醒目。
 
-![bugly_crash_report](/res/images/210627_bugly_crash_report.png)
+![bugly_crash_report](/res/images/210627_bugly_crash_report.png){:height="138px" width="720px"}
 
 ### 问题调用栈
 
@@ -69,7 +69,7 @@ protected void throwIfCannotDraw(Bitmap bitmap) {
 
 原因是 `ImageView#onDraw` 的时候尝试使用已回收的 `bitmap` 进而造成该崩溃。
 
-知道上述原因对问题的分析无实质性帮助，根据 `com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable` 信息首先可以确认是用到 Glide 加载图片相关的业务代码，堆栈信息中有 `AbsListView` 可以确认和其相关子类的控件有关，如 `ListView`和 `GridView`。结合这两点能很快确认和某一块的业务代码相关。
+知道上述原因对问题的分析无实质性帮助，根据 `com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable` 信息首先可以确认是用到 Glide 加载图片相关的业务代码，堆栈信息中有 `AbsListView` 可以确认和其相关子类的控件有关，如 `ListView` 和 `GridView`。结合这两点能很快确认和某一块的业务代码相关。
 
 ### 2. 检索类似异常
 

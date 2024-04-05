@@ -5,7 +5,7 @@ date:   2024-04-05 20:15:45 +0800
 categories: android
 ---
 
-## 一. 引言
+## 引言
 
 > [自 2021 年 6 月 22 日起，我们不再支持在 Mac OS X 上构建新版 Android 平台。不过，旧版 Android 仍可在 Mac 上构建](https://source.android.com/docs/setup/start/requirements#os-requirements)。
 
@@ -13,9 +13,9 @@ categories: android
 
 > OrbStack is a fast, light, and simple way to run containers and Linux machines on macOS. It's a supercharged alternative to Docker Desktop and WSL, all in one easy-to-use app.
 
-## 二. 环境搭建和产物构建
+## 环境搭建和产物构建
 
-### 1. 创建 Ubuntu
+### 创建 Ubuntu
 
 查看 ```OrbStack``` 官方文档以及考虑到 ```arm``` 架构的 ```Ubuntu``` 编译可能存在未知问题，所以还是选择创建了 ```amd64``` 的 ```Ubuntu``` 环境
 
@@ -33,7 +33,7 @@ $ cat  /etc/issue
 Ubuntu 23.10 \n \l
 ```
 
-### 2. [安装相关依赖](https://source.android.com/docs/setup/start/requirements#install-packages)
+### [安装相关依赖](https://source.android.com/docs/setup/start/requirements#install-packages)
 
 做了如下变动
 - ```git-core``` -> ```git```
@@ -44,7 +44,7 @@ Ubuntu 23.10 \n \l
 $ sudo apt-get install git gnupg flex bison build-essential zip curl zlib1g-dev libc6-dev-i386 libncurses5-dev x11proto-core-dev libx11-dev lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig rsync
 ```
 
-### 3. 同步源码
+### 同步源码
 
 ```bash
 $ mkdir ~/bin
@@ -86,7 +86,7 @@ $ tar -xf google_devices-oriole-ap1a.240305.019.a1-8e8e1205.tgz
 $ ./extract-google_devices-oriole.sh
 ```
 
-### 4. 编译
+### 编译
 
 ```bash
 $ source build/envsetup.sh
@@ -170,7 +170,7 @@ $ m WITH_DEXPREOPT=false
 $ make otapackage -j64 WITH_DEXPREOPT=false
 ```
 
-## 三. 刷机
+## 刷机
 
 对应生成产物在 ```out/target/product/oriole/``` 目录下
 

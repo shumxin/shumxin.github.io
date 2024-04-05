@@ -5,7 +5,7 @@ date:   2021-06-27 13:27:28 +0800
 categories: android
 ---
 
-## 一. 问题描述
+## 问题描述
 
 ### 引言
 
@@ -45,9 +45,9 @@ java.lang.RuntimeException: Canvas: trying to use a recycled bitmap android.grap
 
 查看对应版本的 mapping 文件确认 `app.abk` 对应 `com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable`
 
-## 二. 问题分析
+## 问题分析
 
-### 1. 提取主要信息
+### 提取主要信息
 
 正常来说根据异常信息的堆栈很容易定位到相关业务代码的出错位置，而该堆栈信息乍一看有点懵
 
@@ -71,7 +71,7 @@ protected void throwIfCannotDraw(Bitmap bitmap) {
 
 知道上述原因对问题的分析无实质性帮助，根据 `com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable` 信息首先可以确认是用到 Glide 加载图片相关的业务代码，堆栈信息中有 `AbsListView` 可以确认和其相关子类的控件有关，如 `ListView` 和 `GridView`。结合这两点能很快确认和某一块的业务代码相关。
 
-### 2. 检索类似异常
+### 检索类似异常
 
 既然和 Glide 相关，所以直接去 github 上 [glide](https://github.com/bumptech/glide) 的官方项目检索相关 [issue](https://github.com/bumptech/glide/issues?q=Canvas%3A+trying+to+use+a+recycled+bitmap+)，发现该问题的反馈还挺多，查看了几个类似问题后最终指向了官方关于常见错误一个说明文档 [common-errors](http://bumptech.github.io/glide/doc/resourcereuse.html#common-errors)
 
@@ -92,7 +92,7 @@ public void applyOptions(Context context, GlideBuilder builder) {
 
 > 上面的代码确保没有内存缓存，且 `BitmapPool` 的尺寸为 0；因此 `Bitmap` 如果恰好没有被使用，它将立刻被回收。这是为了调试目的让它更快出现。
 
-### 3. 尝试复现
+### 尝试复现
 
 结合上述说明我们可以尝试在项目代码里面对怀疑的地方进行相关日志添加再模拟场景尝试复现。实际的业务代码场景入手其实可以先定位大致位置，尝试触发大量图片加载触发 Glide `BitmapPool` 进行资源回收后来进行场景复现。这里我就简单通过 [Demo](https://github.com/shumxin/Drimo/tree/main/glideresreuseerror) 来复现该崩溃。
 
@@ -186,11 +186,11 @@ io.github.shumxin.glideresreuseerror E/AndroidRuntime: FATAL EXCEPTION: main
         ...
 ```
 
-### 4. 原因分析
+### 原因分析
 
 这里 `ImageView` 在 `onDraw` 阶段用到的 `mDrawable` 实际是 `BitmapDrawable`，其持有了对应的 `Bitmap` 对象，该 `Bitmap` 对象在 Glide 的 `LruBitmapPool#put` 方法中当不满足缓存条件时则会调用 `bitmap.recycle()` 进行回收。`RecyclerView` 滑动时当出现 `ViewHolder` 复用时，新的图片资源还未获取到时，该 `ViewHolder` 中的 `ImageView` 用之前请求的图片资源进行绘制时，对应该图片资源的 `mDrawable` 中的 `Bitmap` 已经被回收，遂会抛出该异常。
 
-### 5. 解决方案
+### 解决方案
 
 结合原因分析，最初我在工程项目里面的实现方案则是通过对崩溃的地方的自定义 ImageView，并对其 `onDraw()` 方法进行重写。判断如果当前持有的 `mDrawable` 是 `BitmapDrawable`，当其持有的 `bitmap.isRecycled`，则不触发最终的绘制操作。
 

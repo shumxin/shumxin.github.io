@@ -7,7 +7,7 @@ categories: android
 
 ## 问题描述
 
-### 引言
+### 背景
 
 最近看了我司某产品的 Bugly 上的崩溃分析统计，注意到 `Canvas: trying to use a recycled bitmap android.graphics.Bitmap@e9a8c74` 异常有点醒目。
 

@@ -5,7 +5,7 @@ date:   2024-04-05 20:15:45 +0800
 categories: android
 ---
 
-## 引言
+## 背景
 
 > [自 2021 年 6 月 22 日起，我们不再支持在 Mac OS X 上构建新版 Android 平台。不过，旧版 Android 仍可在 Mac 上构建](https://source.android.com/docs/setup/start/requirements#os-requirements)。
 

@@ -5,7 +5,7 @@ date:   2021-08-13 23:56:40 +0800
 categories: android
 ---
 
-## 引言
+## 背景
 
 `Android Studio` 对于 `AOSP Native` 部分的代码支持还不够完善，比如不支持跳转，无法查看引用以及无法通过 `CTRL + F12` 查看代码结构，给代码阅读造成了极大的不便。查看了谷歌[官方文档](https://android.googlesource.com/platform/build/soong/+/refs/heads/master/docs/clion.md)，了解到可以通过配置 `CMakeLists.txt` 导入到 `CLion` 来进行阅读 `Native` 部分代码。
 

@@ -5,7 +5,7 @@ date:   2024-05-01 10:24:01 +0800
 categories: android
 ---
 
-## 引言
+## 背景
 
 在 [MacBook Pro M3 Max 上编译 AOSP](https://shumxin.github.io/2024/04/05/build-aosp-in-mackbook-pro-m3-max/) 的文章中提到了使用 ```OrbStack``` 进行 ```AOSP``` 项目编译，但是对于代码查看和调试不方便，用了 ```idea```, ```vscode``` 的 ```remote``` 方式都有些问题，还是选用官方推荐的 ```Ubuntu``` 配合 [```ASfP```](https://developer.android.com/studio/platform) 的方式更合适。
 
